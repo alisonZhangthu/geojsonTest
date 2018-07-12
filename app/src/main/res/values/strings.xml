@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">GeoJsonTest</string>
+    <string name="my_mapbox_access_token">pk.eyJ1IjoiYWxpc29uenRodSIsImEiOiJjampodnd3ZHAyYzRxM3BvbG9ma3ZjNTlwIn0.XYrc51-CU5N03SvjLfTyMA</string>
+    <string name="click_on_polygon_toast_instruction">hi alison</string>
+    <string name="click_on_polygon_toast">click_on_polygon_toast</string>
+</resources>
