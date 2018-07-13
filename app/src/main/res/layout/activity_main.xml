@@ -9,7 +9,7 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapbox:mapbox_styleUrl="@string/mapbox_style_light"
+        mapbox:mapbox_styleUrl="mapbox://styles/alisonzthu/cjjj82faz2rkq2to3cp48wqkr"
         mapbox:mapbox_cameraZoom="0" />
 
 </RelativeLayout>
