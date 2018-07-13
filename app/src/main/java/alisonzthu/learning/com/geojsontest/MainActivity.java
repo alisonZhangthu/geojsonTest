@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private MapboxMap mapboxMap;
     private static final String geojsonSourceId = "west russia";
     private static final String geojsonLayerId = "west russia layer";
+    private static final String[] countries = {"jpn", "kor", "prk", "rus", "kaz","kgz", "mng", "chn", "twn", "brn", "idn", "khm", "tls",
+                                                "lao", "mmr", "mys", "phl", "tha", "vnm"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
