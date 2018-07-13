@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MapView mapView;
     private MapboxMap mapboxMap;
-    private static final String geojsonSourceId = "west russia";
-    private static final String geojsonLayerId = "west russia layer";
+//    private static final String geojsonSourceId = "west russia";
+//    private static final String geojsonLayerId = "west russia layer";
     private static final String[] countries = {"jpn", "kor", "prk", "rus", "kaz","kgz", "mng", "chn", "twn", "brn", "idn", "khm", "tls",
                                                 "lao", "mmr", "mys", "phl", "tha", "vnm"};
 
@@ -64,23 +64,45 @@ public class MainActivity extends AppCompatActivity {
 
     private void drawPolygon(MapboxMap mapboxMap) {
         try {
-            InputStream inputStream = getAssets().open("west_russia.json");
-            BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+            //old render west russia
+//            InputStream inputStream = getAssets().open("west_russia.json");
+//            BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+//
+//            StringBuilder sb = new StringBuilder();
+//            int cp;
+//            while( (cp = rd.read()) != -1) {
+//                sb.append((char) cp);
+//            }
+//            inputStream.close();
+//
+//            // Parse JSON
+//            GeoJsonSource source = new GeoJsonSource(geojsonSourceId, sb.toString());
+//            mapboxMap.addSource(source);
+//
+//            FillLayer layer = new FillLayer(geojsonLayerId, geojsonSourceId);
+//            layer.setProperties(fillOpacity(0.5f), fillColor("#f00"));
+//            mapboxMap.addLayer(layer);
 
-            StringBuilder sb = new StringBuilder();
-            int cp;
-            while( (cp = rd.read()) != -1) {
-                sb.append((char) cp);
+            // render east asia:
+            for (String country: countries) {
+                InputStream inputStream = getAssets().open(country+".json");
+                BufferedReader rd = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+
+                StringBuilder sb = new StringBuilder();
+                int cp;
+                while( (cp = rd.read()) != -1) {
+                    sb.append((char) cp);
+                }
+                inputStream.close();
+
+                // Parse JSON
+                GeoJsonSource source = new GeoJsonSource(country, sb.toString());
+                mapboxMap.addSource(source);
+                FillLayer layer = new FillLayer(country, country);
+                layer.setProperties(fillOpacity(0.5f), fillColor("#f00"));
+                mapboxMap.addLayer(layer);
             }
-            inputStream.close();
 
-            // Parse JSON
-            GeoJsonSource source = new GeoJsonSource(geojsonSourceId, sb.toString());
-            mapboxMap.addSource(source);
-
-            FillLayer layer = new FillLayer(geojsonLayerId, geojsonSourceId);
-            layer.setProperties(fillOpacity(0.5f), fillColor("#f00"));
-            mapboxMap.addLayer(layer);
         } catch (Exception e) {
             Log.e("alison", "error reading file");
         }
@@ -93,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 //
                 PointF pointf = mapboxMap.getProjection().toScreenLocation(point);
                 RectF rectF = new RectF(pointf.x - 10, pointf.y - 10, pointf.x + 10, pointf.y + 10);
-                List<Feature> featureList = mapboxMap.queryRenderedFeatures(rectF, geojsonLayerId);
+                List<Feature> featureList = mapboxMap.queryRenderedFeatures(rectF, countries);
                 if (featureList.size() > 0) {
                     for (Feature feature : featureList) {
                         Log.d("Feature found with %1$s", feature.toJson());
